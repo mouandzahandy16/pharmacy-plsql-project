@@ -1,0 +1,12 @@
+CREATE USER pharmacy_user
+IDENTIFIED BY pharmacy123
+DEFAULT TABLESPACE pharmacy_data
+TEMPORARY TABLESPACE temp
+QUOTA UNLIMITED ON pharmacy_data;
+
+GRANT CONNECT, RESOURCE TO pharmacy_user;
+GRANT CREATE TABLE TO pharmacy_user;
+GRANT CREATE SEQUENCE TO pharmacy_user;
+GRANT CREATE VIEW TO pharmacy_user;
+GRANT CREATE PROCEDURE TO pharmacy_user;
+GRANT CREATE TRIGGER TO pharmacy_user;
