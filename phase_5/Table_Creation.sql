@@ -1,0 +1,46 @@
+CREATE TABLE supplier (
+  supplier_id   NUMBER PRIMARY KEY,
+  supplier_name VARCHAR2(100) NOT NULL,
+  phone         VARCHAR2(20)
+);
+
+CREATE TABLE medicine (
+  medicine_id   NUMBER PRIMARY KEY,
+  medicine_name VARCHAR2(100) NOT NULL,
+  category      VARCHAR2(50),
+  supplier_id   NUMBER,
+  expiry_date   DATE NOT NULL,
+  unit_price    NUMBER(10,2),
+  CONSTRAINT fk_supplier
+  FOREIGN KEY (supplier_id)
+  REFERENCES supplier(supplier_id)
+);
+
+CREATE TABLE stock (
+  stock_id      NUMBER PRIMARY KEY,
+  medicine_id   NUMBER,
+  quantity      NUMBER,
+  last_updated  DATE,
+  CONSTRAINT fk_medicine_stock
+  FOREIGN KEY (medicine_id)
+  REFERENCES medicine(medicine_id)
+);
+
+CREATE TABLE user_account (
+  user_id   NUMBER PRIMARY KEY,
+  username  VARCHAR2(50) NOT NULL
+);
+
+CREATE TABLE sale (
+  sale_id        NUMBER PRIMARY KEY,
+  medicine_id    NUMBER,
+  user_id        NUMBER,
+  quantity_sold  NUMBER,
+  sale_date      DATE,
+  CONSTRAINT fk_medicine_sale
+  FOREIGN KEY (medicine_id)
+  REFERENCES medicine(medicine_id),
+  CONSTRAINT fk_user_sale
+  FOREIGN KEY (user_id)
+  REFERENCES user_account(user_id)
+);
